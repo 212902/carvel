@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CARVEL | Ropa, Estilo y Actitud</title>
+    <!-- Enlace al archivo de estilos externos style.css -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Fuentes tipográficas de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR DE ANUNCIOS -->
+    <div class="top-bar">
+        ✨ Colección de piezas únicas · Envíos seguros a todo México ✨
+    </div>
+
+    <!-- ENCABEZADO Y BRANDING -->
+    <header class="main-header">
+        <div class="logo-container">
+            <svg class="brand-logo" viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+                <!-- Monograma CV Estilizado en tono café -->
+                <g class="monogram" fill="none" stroke="#8B5E3C" stroke-width="2.2">
+                    <path d="M 130,55 C 120,32 95,28 80,45 C 65,62 70,85 92,92 C 110,98 128,82 135,70" />
+                    <path d="M 125,48 L 142,88 L 160,48" stroke="#3A2518" stroke-width="1.8" />
+                </g>
+                <!-- Nombre de marca CARVEL -->
+                <text x="150" y="105" text-anchor="middle" class="brand-text">C A R V E L</text>
+                <!-- Eslogan CARVEL -->
+                <text x="150" y="122" text-anchor="middle" class="brand-tagline">R O P A   •   E S T I L O   •   A C T I T U D</text>
+            </svg>
+        </div>
+        <div class="header-actions">
+            <button id="size-guide-btn" class="size-guide-btn">📏 Guía de Tallas</button>
+            <button id="admin-login-btn" class="admin-login-btn">🔒 Acceso Dueño</button>
+            <button id="cart-btn" class="cart-btn">
+                🛒 Carrito <span id="cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="container">
+        <section class="intro-section">
+            <h1>Piezas Únicas & Exclusivas</h1>
+            <p>Cada prenda cuenta su propia historia. Solo existe una pieza por modelo.</p>
+        </section>
+
+        <!-- CONTROLES DE BÚSQUEDA Y FILTROS -->
+        <section class="filter-section">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Buscar prenda por nombre o material...">
+            </div>
+            <div class="filter-group">
+                <button class="filter-btn active" data-category="all">Todos</button>
+                <button class="filter-btn" data-category="abrigos">Abrigos</button>
+                <button class="filter-btn" data-category="chaquetas">Chaquetas</button>
+                <button class="filter-btn" data-category="camisas">Camisas</button>
+            </div>
+        </section>
+
+        <!-- PANEL DE ADMINISTRACIÓN / EDICIÓN PRIVADO -->
+        <section id="admin-panel" class="admin-panel hidden">
+            <div class="admin-header">
+                <h2>🛠️ Panel de Edición CARVEL (Exclusivo Dueño)</h2>
+                <button id="admin-logout-btn" class="btn-secondary">Cerrar Sesión</button>
+            </div>
+            <p class="admin-subtitle">Selecciona una prenda para editar su imagen, precio y detalles de la tarjeta:</p>
+            
+            <div class="admin-controls">
+                <div class="form-group">
+                    <label for="select-product">Prenda a Editar:</label>
+                    <select id="select-product">
+                        <option value="1">Prenda 1 (Sobretodo Vintage)</option>
+                        <option value="2">Prenda 2 (Chaqueta Mezclilla)</option>
+                        <option value="3">Prenda 3 (Camisa Seda)</option>
+                    </select>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="edit-title">Nombre de la Prenda:</label>
+                        <input type="text" id="edit-title">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-price">Precio ($ MXN):</label>
+                        <input type="number" id="edit-price">
+                    </div>
+
+                    <!-- SUBIR IMAGEN PRINCIPAL DESDE EQUIPO/DISPOSITIVO -->
+                    <div class="form-group full-width">
+                        <label for="edit-file-img" style="font-weight: 600; color: var(--accent-brown);">📷 Subir Imagen Principal de la Prenda (desde tu equipo):</label>
+                        <input type="file" id="edit-file-img" accept="image/*" style="padding: 10px; border: 1px dashed var(--accent-brown); background: #FAF6F0; border-radius: 8px; cursor: pointer; width: 100%;">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="edit-img">O ingresar URL / Enlace de Imagen Principal:</label>
+                        <input type="text" id="edit-img" placeholder="Ej: https://misitio.com/foto1.jpg">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="edit-img2">URL / Enlace Imagen Secundaria:</label>
+                        <input type="text" id="edit-img2" placeholder="Ej: https://misitio.com/foto2.jpg">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-material">Material:</label>
+                        <input type="text" id="edit-material">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-medidas">Medidas:</label>
+                        <input type="text" id="edit-medidas">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-condicion">Condición:</label>
+                        <input type="text" id="edit-condicion">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-origen">Origen / Curaduría:</label>
+                        <input type="text" id="edit-origen">
+                    </div>
+                </div>
+
+                <div class="admin-actions">
+                    <button id="save-changes-btn" class="btn-save">💾 Guardar Cambios en la Tienda</button>
+                    <button id="reset-default-btn" class="btn-reset">🔄 Restaurar Datos Originales</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- GRID DE PRODUCTOS -->
+        <div class="products-grid" id="products-grid"></div>
+
+        <!-- SECCIÓN DE PRÓXIMOS DROPS (FOMO) -->
+        <section class="upcoming-drop-section">
+            <div class="section-title">
+                <h2>🔥 Próximo Drop Exclusivo</h2>
+                <p>Adelanto de piezas únicas que se liberarán este fin de semana.</p>
+            </div>
+            <div class="upcoming-grid">
+                <div class="upcoming-card">
+                    <div class="blur-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80" alt="Próxima prenda">
+                        <span class="lock-badge">🔒 Reservado</span>
+                    </div>
+                    <h3>Trench Coat Italiano 90s</h3>
+                    <p>Lanzamiento: Sábado 10:00 AM</p>
+                </div>
+                <div class="upcoming-card">
+                    <div class="blur-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1520975954732-35dd22299614?auto=format&fit=crop&w=600&q=80" alt="Próxima prenda">
+                        <span class="lock-badge">🔒 Reservado</span>
+                    </div>
+                    <h3>Chaqueta Cuero Bomber Vintage</h3>
+                    <p>Lanzamiento: Sábado 10:00 AM</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE VALORACIONES Y RESEÑAS DE CLIENTES -->
+        <section class="reviews-section">
+            <div class="section-title">
+                <h2>🌟 Experiencias & Valoraciones CARVEL</h2>
+                <p>Déjanos tu opinión y comparte la foto de tu prenda única.</p>
+            </div>
+
+            <!-- FORMULARIO PARA NUEVA VALORACIÓN -->
+            <div class="add-review-card">
+                <h3>Escribe tu valoración y sube tu foto</h3>
+                <form id="review-form">
+                    <div class="rating-input">
+                        <span>Puntuación:</span>
+                        <div class="star-rating">
+                            <input type="radio" id="star5" name="rating" value="5" checked><label for="star5">★</label>
+                            <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                            <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                            <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                            <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <input type="text" id="review-author" placeholder="Tu Nombre y Ciudad (Ej: Sofía M. - CDMX)" required style="width:100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <textarea id="review-text" rows="3" placeholder="Escribe tu comentario sobre la prenda o tu experiencia..." required style="width:100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit;"></textarea>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="review-photo" class="file-label" style="display: block; padding: 12px; background: #FAF6F0; border: 1px dashed var(--accent-brown); border-radius: 8px; text-align: center; cursor: pointer;">
+                            📷 Subir foto de tu producto (Opcional)
+                        </label>
+                        <input type="file" id="review-photo" accept="image/*" style="display: none;">
+                    </div>
+                    <button type="submit" class="btn-save" style="width: 100%; background: var(--text-primary); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                        Publicar Valoración ✨
+                    </button>
+                </form>
+            </div>
+
+            <!-- CONTENEDOR DE RESEÑAS -->
+            <div class="reviews-grid" id="reviews-grid">
+                <!-- Se cargan dinámicamente -->
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL DE GUÍA DE TALLAS -->
+    <div class="modal-overlay" id="size-modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📐 Guía de Tallas & Medición CARVEL</h2>
+                <button class="close-modal" id="close-size-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Al ser prendas de edición única y época vintage, recomendamos verificar las medidas en centímetros de cada prenda:</p>
+                <table class="size-table">
+                    <thead>
+                        <tr>
+                            <th>Talla Equivalente</th>
+                            <th>Hombros (cm)</th>
+                            <th>Pecho (cm)</th>
+                            <th>Largo (cm)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>S (Chica)</td><td>42 - 45 cm</td><td>48 - 52 cm</td><td>65 - 70 cm</td></tr>
+                        <tr><td>M (Mediana)</td><td>46 - 49 cm</td><td>53 - 57 cm</td><td>71 - 75 cm</td></tr>
+                        <tr><td>L (Grande)</td><td>50 - 53 cm</td><td>58 - 62 cm</td><td>76 - 80 cm</td></tr>
+                        <tr><td>XL (Extra Grande)</td><td>54+ cm</td><td>63+ cm</td><td>81+ cm</td></tr>
+                    </tbody>
+                </table>
+                <div class="measure-tip">
+                    💡 <strong>Tip de Medición:</strong> Compara las medidas de la ficha con una prenda que te quede perfecta colocada sobre una superficie plana.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARRITO DE COMPRAS LATERAL -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h2>Tu Bolsa de Compras</h2>
+            <button id="close-cart" class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <p class="empty-cart-msg">Tu carrito está vacío.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">$0 MXN</span>
+            </div>
+            <button id="whatsapp-checkout" class="whatsapp-checkout-btn">
+                Enviar pedido por WhatsApp 📱
+            </button>
+        </div>
+    </div>
+
+    <!-- FOOTER COMPLETO -->
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>CARVEL</h3>
+                <p>Curaduría exclusiva de moda con carácter y actitud. Cada pieza es única e irrepetible.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Envíos & Pagos</h4>
+                <ul>
+                    <li>🚚 Envíos a todo México por FedEx/Estafeta</li>
+                    <li>💳 Pagos seguros por transferencia y WhatsApp</li>
+                    <li>🔒 Piezas 100% Auténticas y Verificadas</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto & Redes</h4>
+                <ul>
+                    <li>📱 WhatsApp: +52 55 7445 4907</li>
+                    <li>📸 Instagram: @carvel_fashion</li>
+                    <li>🎵 TikTok: @carvel_oficial</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 CARVEL. Todos los derechos reservados. Ropa · Estilo · Actitud.</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
+    <a href="https://wa.me/525574454907?text=Hola%20CARVEL,%20me%20interesa%20conocer%20más%20sobre%20sus%20piezas%20únicas." class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="whatsapp-icon"><path d="M16 2C8.268 2 2 8.268 2 16c0 2.478.652 4.802 1.788 6.814L2 30l7.394-1.744A13.905 13.905 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.454c-2.148 0-4.204-.572-6.002-1.656l-.43-.258-4.454 1.05 1.084-4.34-.28-.45A11.455 11.455 0 014.546 16c0-6.326 5.128-11.454 11.454-11.454S27.454 9.674 27.454 16 22.326 27.454 16 27.454zm6.284-8.572c-.344-.172-2.036-1.004-2.352-1.118-.316-.114-.546-.172-.776.172-.23.344-.89 1.118-1.092 1.348-.202.23-.404.258-.748.086-.344-.172-1.452-.536-2.766-1.708-1.022-.912-1.71-2.038-1.912-2.382-.202-.344-.022-.53.15-.702.154-.154.344-.402.516-.602.172-.2.23-.344.344-.572.114-.23.058-.43-.028-.602-.086-.172-.776-1.872-1.064-2.56-.28-.674-.564-.582-.776-.594l-.66-.012c-.23 0-.602.086-.918.43-.316.344-1.206 1.178-1.206 2.874s1.234 3.332 1.406 3.56c.172.23 2.42 3.694 5.864 5.178.82.354 1.46.566 1.96.726.822.262 1.572.224 2.162.136.66-.1 2.036-.832 2.324-1.636.288-.804.288-1.492.202-1.636-.086-.144-.316-.23-.66-.402z"/></svg>
+    </a>
+
+    <!-- LÓGICA JAVASCRIPT -->
+    <script>
+        const ADMIN_PASSWORD = "Aniversario08092015";
+
+        const initialProducts = [
+            {
+                id: "1",
+                name: "Sobretodo Vintage Oversized",
+                category: "abrigos",
+                price: 1850,
+                img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80",
+                img2: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=800&q=80",
+                material: "100% Lana Virgen & Forro de Seda",
+                medidas: "Hombros 52cm / Largo 110cm",
+                condicion: "Excelente estado vintage (9.8/10)",
+                origen: "Curaduría en Milán, Italia"
+            },
+            {
+                id: "2",
+                name: "Chaqueta de Mezclilla Custom",
+                category: "chaquetas",
+                price: 1420,
+                img: "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=800&q=80",
+                img2: "https://images.unsplash.com/photo-1516257984-b1b4d707412e?auto=format&fit=crop&w=800&q=80",
+                material: "Denim rígido algodón pesado",
+                medidas: "Pecho 56cm / Manga 64cm",
+                condicion: "Intervenido a mano / 10/10",
+                origen: "Edición limitada CARVEL Studio"
+            },
+            {
+                id: "3",
+                name: "Camisa de Seda Estampada",
+                category: "camisas",
+                price: 980,
+                img: "https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=800&q=80",
+                img2: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=800&q=80",
+                material: "100% Seda natural",
+                medidas: "Ancho 50cm / Largo 72cm",
+                condicion: "Impecable, corte retro fluido",
+                origen: "Selección exclusiva París"
+            }
+        ];
+
+        let products = JSON.parse(localStorage.getItem('carvel_products')) || initialProducts;
+        let currentCategory = 'all';
+        let searchQuery = '';
+
+        const grid = document.getElementById('products-grid');
+
+        function renderProducts() {
+            grid.innerHTML = '';
+
+            const filtered = products.filter(p => {
+                const matchesCategory = currentCategory === 'all' || p.category === currentCategory;
+                const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      p.material.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            if(filtered.length === 0) {
+                grid.innerHTML = '<p class="no-results">No se encontraron prendas con estos criterios de búsqueda.</p>';
+                return;
+            }
+
+            filtered.forEach(prod => {
+                const card = document.createElement('div');
+                card.classList.add('product-card');
+                card.setAttribute('data-id', prod.id);
+                card.setAttribute('data-name', prod.name);
+                card.setAttribute('data-price', prod.price);
+
+                const img2Attr = prod.img2 ? prod.img2 : prod.img;
+
+                card.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <span class="badge-unique">Pieza Única</span>
+                            <div class="img-container">
+                                <img src="${prod.img}" class="main-prod-img" alt="${prod.name}">
+                            </div>
+                            <div class="gallery-thumbs">
+                                <img src="${prod.img}" class="thumb active" onclick="changeImage(this, '${prod.img}')">
+                                <img src="${img2Attr}" class="thumb" onclick="changeImage(this, '${img2Attr}')">
+                            </div>
+                            <div class="card-info">
+                                <h3>${prod.name}</h3>
+                                <p class="price">$${prod.price.toLocaleString()} MXN</p>
+                                <button class="btn-flip">Ver Detalles</button>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h3>Detalles de la Pieza</h3>
+                            <ul class="details-list">
+                                <li><strong>Material:</strong> ${prod.material}</li>
+                                <li><strong>Medidas:</strong> ${prod.medidas}</li>
+                                <li><strong>Condición:</strong> ${prod.condicion}</li>
+                                <li><strong>Origen:</strong> ${prod.origen}</li>
+                            </ul>
+                            <div class="back-actions">
+                                <button class="btn-add-cart">Agregar al Carrito</button>
+                                <button class="btn-flip-back">Volver a Foto</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            bindCardEvents();
+        }
+
+        window.changeImage = function(thumbEl, newSrc) {
+            const cardFront = thumbEl.closest('.card-front');
+            const mainImg = cardFront.querySelector('.main-prod-img');
+            mainImg.src = newSrc;
+            
+            cardFront.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+            thumbEl.classList.add('active');
+        };
+
+        function bindCardEvents() {
+            document.querySelectorAll('.product-card').forEach(card => {
+                const btnFlip = card.querySelector('.btn-flip');
+                const btnFlipBack = card.querySelector('.btn-flip-back');
+
+                btnFlip.addEventListener('click', () => card.classList.add('flipped'));
+                btnFlipBack.addEventListener('click', () => card.classList.remove('flipped'));
+            });
+
+            document.querySelectorAll('.btn-add-cart').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const card = e.target.closest('.product-card');
+                    const id = card.dataset.id;
+                    const name = card.dataset.name;
+                    const price = parseFloat(card.dataset.price);
+
+                    const existingItem = cart.find(item => item.id === id);
+                    if (existingItem) {
+                        alert('¡Esta prenda es única y ya se encuentra en tu carrito!');
+                        return;
+                    }
+
+                    cart.push({ id, name, price });
+                    updateCart();
+                    
+                    cartOverlay.classList.add('active');
+                    cartDrawer.classList.add('active');
+                });
+            });
+        }
+
+        // BÚSQUEDA Y FILTROS
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                currentCategory = e.target.dataset.category;
+                renderProducts();
+            });
+        });
+
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderProducts();
+        });
+
+        // MODAL DE GUÍA DE TALLAS
+        const sizeModalBtn = document.getElementById('size-guide-btn');
+        const sizeModalOverlay = document.getElementById('size-modal-overlay');
+        const closeSizeModal = document.getElementById('close-size-modal');
+
+        sizeModalBtn.addEventListener('click', () => sizeModalOverlay.classList.add('active'));
+        closeSizeModal.addEventListener('click', () => sizeModalOverlay.classList.remove('active'));
+        sizeModalOverlay.addEventListener('click', (e) => {
+            if(e.target === sizeModalOverlay) sizeModalOverlay.classList.remove('active');
+        });
+
+        // PANEL ADMINISTRACIÓN
+        const adminLoginBtn = document.getElementById('admin-login-btn');
+        const adminLogoutBtn = document.getElementById('admin-logout-btn');
+        const adminPanel = document.getElementById('admin-panel');
+        const selectProduct = document.getElementById('select-product');
+
+        const editTitle = document.getElementById('edit-title');
+        const editPrice = document.getElementById('edit-price');
+        const editImg = document.getElementById('edit-img');
+        const editImg2 = document.getElementById('edit-img2');
+        const editFileImg = document.getElementById('edit-file-img');
+        const editMaterial = document.getElementById('edit-material');
+        const editMedidas = document.getElementById('edit-medidas');
+        const editCondicion = document.getElementById('edit-condicion');
+        const editOrigen = document.getElementById('edit-origen');
+        const saveChangesBtn = document.getElementById('save-changes-btn');
+        const resetDefaultBtn = document.getElementById('reset-default-btn');
+
+        adminLoginBtn.addEventListener('click', () => {
+            const pass = prompt("Introduce tu clave secreta de dueño:");
+            if (pass === ADMIN_PASSWORD) {
+                adminPanel.classList.remove('hidden');
+                adminLoginBtn.style.display = 'none';
+                loadFormValues(selectProduct.value);
+            } else if (pass !== null) {
+                alert("Clave incorrecta. Acceso denegado.");
+            }
+        });
+
+        adminLogoutBtn.addEventListener('click', () => {
+            adminPanel.classList.add('hidden');
+            adminLoginBtn.style.display = 'block';
+        });
+
+        function loadFormValues(id) {
+            const prod = products.find(p => p.id === id);
+            if (!prod) return;
+
+            editTitle.value = prod.name;
+            editPrice.value = prod.price;
+            editImg.value = prod.img;
+            editImg2.value = prod.img2 || '';
+            editMaterial.value = prod.material;
+            editMedidas.value = prod.medidas;
+            editCondicion.value = prod.condicion;
+            editOrigen.value = prod.origen;
+            if(editFileImg) editFileImg.value = '';
+        }
+
+        selectProduct.addEventListener('change', (e) => loadFormValues(e.target.value));
+
+        saveChangesBtn.addEventListener('click', () => {
+            const id = selectProduct.value;
+            const index = products.findIndex(p => p.id === id);
+
+            if (index !== -1) {
+                const updateProductData = (mainImgUrl) => {
+                    products[index] = {
+                        ...products[index],
+                        name: editTitle.value,
+                        price: parseFloat(editPrice.value) || 0,
+                        img: mainImgUrl,
+                        img2: editImg2.value,
+                        material: editMaterial.value,
+                        medidas: editMedidas.value,
+                        condicion: editCondicion.value,
+                        origen: editOrigen.value
+                    };
+
+                    localStorage.setItem('carvel_products', JSON.stringify(products));
+                    renderProducts();
+                    if(editFileImg) editFileImg.value = '';
+                    alert('✨ ¡Cambios guardados con éxito en la tienda!');
+                };
+
+                if (editFileImg && editFileImg.files && editFileImg.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        updateProductData(e.target.result);
+                    };
+                    reader.readAsDataURL(editFileImg.files[0]);
+                } else {
+                    updateProductData(editImg.value);
+                }
+            }
+        });
+
+        resetDefaultBtn.addEventListener('click', () => {
+            if (confirm("¿Seguro que deseas restaurar las fotos y datos originales?")) {
+                localStorage.removeItem('carvel_products');
+                products = [...initialProducts];
+                renderProducts();
+                loadFormValues(selectProduct.value);
+                alert('Restauración completada.');
+            }
+        });
+
+        // --- SISTEMA DE RESEÑAS Y VALORACIONES CON FOTO ---
+        const initialReviews = [
+            {
+                stars: 5,
+                text: "Llegó super rápido a Guadalajara. La prenda tiene una calidad increíble y se nota la curaduría detrás de CARVEL.",
+                author: "Mariana R. (Guadalajara)",
+                photo: null
+            },
+            {
+                stars: 5,
+                text: "Saber que nadie más tiene mi chaqueta en todo México es lo mejor. 10/10 en empaque y atención por WhatsApp.",
+                author: "Rodrigo S. (CDMX)",
+                photo: null
+            }
+        ];
+
+        let userReviews = JSON.parse(localStorage.getItem('carvel_reviews')) || initialReviews;
+        const reviewsGrid = document.getElementById('reviews-grid');
+        const reviewForm = document.getElementById('review-form');
+
+        function renderReviews() {
+            reviewsGrid.innerHTML = '';
+            userReviews.forEach(rev => {
+                const starsHtml = '★'.repeat(rev.stars) + '☆'.repeat(5 - rev.stars);
+                const card = document.createElement('div');
+                card.classList.add('review-card');
+                
+                card.innerHTML = `
+                    <div class="stars">${starsHtml}</div>
+                    <p>"${rev.text}"</p>
+                    ${rev.photo ? `<div class="review-photo-container"><img src="${rev.photo}" alt="Foto del cliente"></div>` : ''}
+                    <span class="review-author">— ${rev.author}</span>
+                `;
+                reviewsGrid.appendChild(card);
+            });
+        }
+
+        reviewForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const ratingInput = document.querySelector('input[name="rating"]:checked');
+            const ratingValue = ratingInput ? parseInt(ratingInput.value) : 5;
+            const authorValue = document.getElementById('review-author').value.trim();
+            const textValue = document.getElementById('review-text').value.trim();
+            const fileInput = document.getElementById('review-photo');
+
+            if (!authorValue || !textValue) {
+                alert('Por favor completa tu nombre y comentario.');
+                return;
+            }
+
+            const newReview = {
+                stars: ratingValue,
+                text: textValue,
+                author: authorValue,
+                photo: null
+            };
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    newReview.photo = evt.target.result;
+                    saveAndRenderReview(newReview);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                saveAndRenderReview(newReview);
+            }
+        });
+
+        function saveAndRenderReview(reviewObj) {
+            userReviews.unshift(reviewObj);
+            localStorage.setItem('carvel_reviews', JSON.stringify(userReviews));
+            renderReviews();
+            reviewForm.reset();
+            alert('¡Gracias por tu valoración! Ha sido publicada correctamente.');
+        }
+
+        renderReviews();
+
+        // LÓGICA DE CARRITO Y PEDIDO POR WHATSAPP CON ENVÍO
+        let cart = [];
+        const cartBtn = document.getElementById('cart-btn');
+        const closeCartBtn = document.getElementById('close-cart');
+        const cartOverlay = document.getElementById('cart-overlay');
+        const cartDrawer = document.getElementById('cart-drawer');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartCount = document.getElementById('cart-count');
+        const cartTotalPrice = document.getElementById('cart-total-price');
+
+        cartBtn.addEventListener('click', () => {
+            cartOverlay.classList.add('active');
+            cartDrawer.classList.add('active');
+        });
+
+        const closeCart = () => {
+            cartOverlay.classList.remove('active');
+            cartDrawer.classList.remove('active');
+        };
+
+        closeCartBtn.addEventListener('click', closeCart);
+        cartOverlay.addEventListener('click', closeCart);
+
+        function updateCart() {
+            cartCount.textContent = cart.length;
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="empty-cart-msg">Tu carrito está vacío.</p>';
+                cartTotalPrice.textContent = '$0 MXN';
+                return;
+            }
+
+            let total = 0;
+            cartItemsContainer.innerHTML = '';
+            cart.forEach(item => {
+                total += item.price;
+                const itemEl = document.createElement('div');
+                itemEl.classList.add('cart-item');
+                itemEl.innerHTML = `
+                    <div>
+                        <h4>${item.name}</h4>
+                        <p class="cart-item-price">$${item.price.toLocaleString()} MXN</p>
+                    </div>
+                    <button class="remove-item" onclick="removeFromCart('${item.id}')">&times;</button>
+                `;
+                cartItemsContainer.appendChild(itemEl);
+            });
+
+            cartTotalPrice.textContent = `$${total.toLocaleString()} MXN`;
+        }
+
+        window.removeFromCart = function(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCart();
+        };
+
+        document.getElementById('whatsapp-checkout').addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Tu carrito está vacío.');
+                return;
+            }
+
+            const COSTO_ENVIO = 130;
+            let subtotal = 0;
+            let message = "Hola CARVEL, ¡quiero adquirir las siguientes piezas únicas!:%0A";
+
+            cart.forEach((item, index) => {
+                message += `%0A${index + 1}. *${item.name}* - $${item.price.toLocaleString()} MXN`;
+                subtotal += item.price;
+            });
+
+            const totalConEnvio = subtotal + COSTO_ENVIO;
+
+            message += `%0A%0A-------------------------------`;
+            message += `%0A*Subtotal prendas:* $${subtotal.toLocaleString()} MXN`;
+            message += `%0A*Envío Estándar (México):* $${COSTO_ENVIO.toLocaleString()} MXN`;
+            message += `%0A*TOTAL A PAGAR:* $${totalConEnvio.toLocaleString()} MXN`;
+            message += `%0A-------------------------------`;
+            message += `%0A%0AQuedo atento/a para coordinar datos de envío y método de pago.`;
+
+            window.open(`https://wa.me/525574454907?text=${message}`, '_blank');
+        });
+
+        renderProducts();
+    </script>
+</body>
+</html>
